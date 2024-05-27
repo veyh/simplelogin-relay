@@ -1,0 +1,23 @@
+---
+source: src/main.rs
+expression: "*mails_actual"
+---
+[
+    Mail {
+        envelope: Envelope {
+            forward_path: [
+                Address {
+                    serialized: "recipient_at_example_com@simplelogin.co",
+                    at_start: 24,
+                },
+            ],
+            reverse_path: Some(
+                Address {
+                    serialized: "user@private.com",
+                    at_start: 4,
+                },
+            ),
+        },
+        email: "From: user@private.com\r\nTo: \"Recipient\" <recipient_at_example_com@simplelogin.co>\r\nDate: Tue, 15 Jan 2008 16:02:43 -0500\r\nSubject: Test message\r\n\r\nHello\r\n.",
+    },
+]

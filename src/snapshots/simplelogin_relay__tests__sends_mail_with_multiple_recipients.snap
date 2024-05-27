@@ -1,0 +1,27 @@
+---
+source: src/main.rs
+expression: "*mails_actual"
+---
+[
+    Mail {
+        envelope: Envelope {
+            forward_path: [
+                Address {
+                    serialized: "first_at_example_com@simplelogin.co",
+                    at_start: 20,
+                },
+                Address {
+                    serialized: "second_at_example_com@simplelogin.co",
+                    at_start: 21,
+                },
+            ],
+            reverse_path: Some(
+                Address {
+                    serialized: "user@private.com",
+                    at_start: 4,
+                },
+            ),
+        },
+        email: "From: user@private.com\r\nTo: \"First\" <first_at_example_com@simplelogin.co>\r\nCc: \"Second\" <second_at_example_com@simplelogin.co>\r\nDate: Tue, 15 Jan 2008 16:02:43 -0500\r\nSubject: Test message\r\n\r\nHello\r\n.",
+    },
+]
