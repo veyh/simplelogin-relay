@@ -1,18 +1,18 @@
 ---
 source: src/main.rs
-expression: "*mails_actual"
+expression: mails
 ---
 [
     Mail {
         envelope: Envelope {
             forward_path: [
                 Address {
-                    serialized: "second_at_example_com@simplelogin.co",
-                    at_start: 21,
-                },
-                Address {
                     serialized: "first_at_example_com@simplelogin.co",
                     at_start: 20,
+                },
+                Address {
+                    serialized: "second_at_example_com@simplelogin.co",
+                    at_start: 21,
                 },
                 Address {
                     serialized: "third_at_example_com@simplelogin.co",

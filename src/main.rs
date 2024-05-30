@@ -629,8 +629,7 @@ mod tests {
             handler.data_end()
         );
 
-        let mails_actual = mailer.mails.lock().unwrap();
-        insta::assert_debug_snapshot!(*mails_actual);
+        snapshot_mails(&mailer.mails.lock().unwrap());
     }
 
     #[test]
@@ -692,8 +691,7 @@ mod tests {
             handler.data_end()
         );
 
-        let mails_actual = mailer.mails.lock().unwrap();
-        insta::assert_debug_snapshot!(*mails_actual);
+        snapshot_mails(&mailer.mails.lock().unwrap());
     }
 
     #[test]
@@ -756,7 +754,35 @@ mod tests {
             handler.data_end()
         );
 
-        let mails_actual = mailer.mails.lock().unwrap();
-        insta::assert_debug_snapshot!(*mails_actual);
+        snapshot_mails(&mailer.mails.lock().unwrap());
+    }
+
+    fn snapshot_mails(mails: &Vec<Mail>) {
+        #[allow(dead_code)]
+        #[derive(Debug)]
+        struct SnapshotMail {
+            email: String,
+            from: Option<Address>,
+            to: Vec<String>,
+        }
+
+        let mut sorted_mails: Vec<SnapshotMail> = vec![];
+
+        for mail in mails.iter() {
+            let mut to: Vec<_> = mail.envelope.to()
+                .iter()
+                .map(|x| x.to_string())
+                .collect();
+
+            to.sort();
+
+            sorted_mails.push(SnapshotMail {
+                email: mail.email.clone(),
+                from: mail.envelope.from().cloned(),
+                to,
+            })
+        }
+
+        insta::assert_debug_snapshot!(sorted_mails);
     }
 }
